@@ -1,9 +1,9 @@
 ﻿namespace DiffApi.Models
 {
-    public class DiffResponse
+    public class DiffResponseDto
     {
         public string DiffResultType { get; set; }
-        public Diff[]? Diffs { get; set; }
+        public DiffDto[]? Diffs { get; set; }
     }
 
     public enum Response

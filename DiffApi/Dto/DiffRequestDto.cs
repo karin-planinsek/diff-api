@@ -1,6 +1,6 @@
 ﻿namespace DiffApi.Models
 {
-    public class DiffRequest
+    public class DiffRequestDto
     {
         public string Data { get; set; }
     }
