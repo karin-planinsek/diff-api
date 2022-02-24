@@ -1,6 +1,6 @@
 ﻿namespace DiffApi.Models
 {
-    public class Item
+    public class LeftDiff
     {
         public string Id { get; set; }
         public string Data { get; set; }
