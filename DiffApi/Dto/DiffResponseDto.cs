@@ -1,4 +1,4 @@
-﻿namespace DiffApi.Models
+﻿namespace DiffApi.Dto
 {
     public class DiffResponseDto
     {
