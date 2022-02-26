@@ -2,7 +2,7 @@
 {
     public class DiffDto
     {
-        public string Offset { get; set; }
-        public string Length { get; set; }
+        public int Offset { get; set; }
+        public int Length { get; set; }
     }
 }

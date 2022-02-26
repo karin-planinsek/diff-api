@@ -2,8 +2,8 @@
 {
     public class DiffResponseDto
     {
-        public string DiffResultType { get; set; }
-        public DiffDto[]? Diffs { get; set; }
+        public Response DiffResultType { get; set; }
+        public IEnumerable<DiffDto>? Diffs { get; set; }
     }
 
     public enum Response
