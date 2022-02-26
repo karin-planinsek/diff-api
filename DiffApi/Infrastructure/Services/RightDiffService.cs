@@ -18,7 +18,7 @@ namespace DiffApi.Infrastructure.Services
             var rightId = FindDiffById(id);
 
             if (rightId == null) _rightDiffRepository.CreateRightDiff(right);
-            else _rightDiffRepository.UpdateRightDiff(rightId);
+            else _rightDiffRepository.UpdateRightDiff(right);
         }
 
         public RightDiff FindDiffById(int id)
