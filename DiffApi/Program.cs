@@ -1,4 +1,6 @@
 using DiffApi.Db;
+using DiffApi.Infrastructure.Repositories;
+using DiffApi.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +12,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DiffContext>(options => options.UseInMemoryDatabase(databaseName: "Diff"));
+builder.Services.AddScoped<ILeftDiffRepository, LeftDiffRepository>();
+builder.Services.AddScoped<ILeftDiffService, LeftDiffService>();
 
 var app = builder.Build();
 
