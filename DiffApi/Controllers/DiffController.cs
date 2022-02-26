@@ -11,11 +11,16 @@ namespace DiffApi.Controllers
     {
         private readonly ILogger<DiffController> _logger;
         private readonly ILeftDiffService _leftDiffService;
+        private readonly IRightDiffService _rightDiffService;
 
-        public DiffController(ILogger<DiffController> logger, ILeftDiffService leftDiffService)
+        public DiffController(
+            ILogger<DiffController> logger, 
+            ILeftDiffService leftDiffService, 
+            IRightDiffService rightDiffService)
         {
             _logger = logger;
             _leftDiffService = leftDiffService;
+            _rightDiffService = rightDiffService;
         }
 
         [HttpPut("{id}/left")]
@@ -31,6 +36,25 @@ namespace DiffApi.Controllers
 
                 return Ok();
             } else
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPut("{id}/right")]
+        public IActionResult CreateRightDiff(int id, [FromBody] DiffRequestDto data)
+        {
+            if (data != null)
+            {
+                RightDiff rightDiff = new RightDiff { Id = id, Data = data.Data };
+                var diffId = _rightDiffService.FindDiffById(id);
+
+                if (diffId == null) _rightDiffService.CreateDiff(rightDiff);
+                else _rightDiffService.UpdateDiff(rightDiff);
+
+                return Ok();
+            }
+            else
             {
                 return BadRequest();
             }
