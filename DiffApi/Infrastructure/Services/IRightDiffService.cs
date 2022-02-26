@@ -4,8 +4,7 @@ namespace DiffApi.Infrastructure.Services
 {
     public interface IRightDiffService
     {
-        void CreateDiff(RightDiff diff);
-        void UpdateDiff(RightDiff diff);
+        void CreateDiff(int id, string data);
         RightDiff FindDiffById(int id);
     }
 }

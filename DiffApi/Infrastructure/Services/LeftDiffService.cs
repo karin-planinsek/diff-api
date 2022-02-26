@@ -1,5 +1,6 @@
 ﻿using DiffApi.Infrastructure.Repositories;
 using DiffApi.Models;
+using System.Text;
 
 namespace DiffApi.Infrastructure.Services
 {
@@ -11,11 +12,13 @@ namespace DiffApi.Infrastructure.Services
         {
             _leftDiffRepository = leftDiffRepository;
         }
-        public int CreateDiff(LeftDiff diff)
+        public void CreateDiff(int id, string data)
         {
-            var leftDiff = _leftDiffRepository.CreateLeftDiff(diff);
+            var left = new LeftDiff { Id = id, Data = Encoding.ASCII.GetBytes(data) };
+            var leftId = FindDiffById(left.Id);
 
-            return leftDiff.Id;
+            if (leftId == null) _leftDiffRepository.CreateLeftDiff(left);
+            else _leftDiffRepository.UpdateLeftDiff(left);
         }
 
         public LeftDiff FindDiffById(int id)
@@ -23,13 +26,6 @@ namespace DiffApi.Infrastructure.Services
             var leftDiff = _leftDiffRepository.GetLeftDiff(id);
 
             return leftDiff;
-        }
-
-        public int UpdateDiff(LeftDiff diff)
-        {
-            var leftDiff = _leftDiffRepository.UpdateLeftDiff(diff);
-
-            return leftDiff.Id;
         }
     }
 }
