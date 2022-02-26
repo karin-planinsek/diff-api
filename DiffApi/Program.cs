@@ -9,7 +9,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<DiffContext>(options => options.UseInMemoryDatabase(databaseName: "DiffItems"));
+builder.Services.AddDbContext<DiffContext>(options => options.UseInMemoryDatabase(databaseName: "Diff"));
 
 var app = builder.Build();
 
