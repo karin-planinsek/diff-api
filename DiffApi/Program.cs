@@ -14,6 +14,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DiffContext>(options => options.UseInMemoryDatabase(databaseName: "Diff"));
 builder.Services.AddScoped<ILeftDiffRepository, LeftDiffRepository>();
 builder.Services.AddScoped<ILeftDiffService, LeftDiffService>();
+builder.Services.AddScoped<IRightDiffRepository, RightDiffRepository>();
+builder.Services.AddScoped<IRightDiffService, RightDiffService>();
 
 var app = builder.Build();
 
