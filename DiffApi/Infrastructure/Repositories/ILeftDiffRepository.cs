@@ -6,5 +6,6 @@ namespace DiffApi.Infrastructure.Repositories
     {
         LeftDiff GetLeftDiff(int id);
         LeftDiff CreateLeftDiff(LeftDiff data);
+        LeftDiff UpdateLeftDiff(LeftDiff data);
     }
 }

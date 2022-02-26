@@ -16,12 +16,23 @@ namespace DiffApi.Infrastructure.Repositories
             if (data == null) throw new ArgumentNullException("Data can't be null");
 
             _context.LeftDiffs.Add(data);
+            
             return data;
         }
 
         public LeftDiff GetLeftDiff(int id)
         {
-            return _context.LeftDiffs.FirstOrDefault(x => x.Id == id);
+            var diff = _context.LeftDiffs.FirstOrDefault(x => x.Id == id);
+            return diff;
+        }
+
+        public LeftDiff UpdateLeftDiff(LeftDiff data)
+        {
+            var leftDiff = GetLeftDiff(data.Id);
+            leftDiff.Data = data.Data;
+            _context.SaveChanges();
+
+            return leftDiff;
         }
     }
 }
