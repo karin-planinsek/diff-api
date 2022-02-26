@@ -13,9 +13,8 @@ namespace DiffApi.Infrastructure.Repositories
         }
         public LeftDiff CreateLeftDiff(LeftDiff data)
         {
-            if (data == null) throw new ArgumentNullException("Data can't be null");
-
             _context.LeftDiffs.Add(data);
+            _context.SaveChanges();
             
             return data;
         }
