@@ -12,15 +12,28 @@ namespace DiffApi.Controllers
         private readonly ILogger<DiffController> _logger;
         private readonly ILeftDiffService _leftDiffService;
         private readonly IRightDiffService _rightDiffService;
+        private readonly IDiffService _diffService;
 
         public DiffController(
             ILogger<DiffController> logger, 
             ILeftDiffService leftDiffService, 
-            IRightDiffService rightDiffService)
+            IRightDiffService rightDiffService,
+            IDiffService diffService)
         {
             _logger = logger;
             _leftDiffService = leftDiffService;
             _rightDiffService = rightDiffService;
+            _diffService = diffService;
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetDiff(int id)
+        {
+            var leftDiff = _leftDiffService.FindDiffById(id);
+            var rightDiff = _rightDiffService.FindDiffById(id);
+
+            if (leftDiff == null || rightDiff == null) return NotFound();
+            else return Ok(_diffService.GetDiff(leftDiff.Data, rightDiff.Data));
         }
 
         [HttpPut("{id}/left")]
@@ -28,11 +41,7 @@ namespace DiffApi.Controllers
         {
             if (data != null)
             {
-                LeftDiff leftDiff = new LeftDiff { Id = id, Data = data.Data };
-                var diffId = _leftDiffService.FindDiffById(id);
-
-                if (diffId == null) _leftDiffService.CreateDiff(leftDiff);
-                else _leftDiffService.UpdateDiff(leftDiff);
+                _leftDiffService.CreateDiff(id, data.Data);
 
                 return Ok();
             } else
@@ -46,11 +55,7 @@ namespace DiffApi.Controllers
         {
             if (data != null)
             {
-                RightDiff rightDiff = new RightDiff { Id = id, Data = data.Data };
-                var diffId = _rightDiffService.FindDiffById(id);
-
-                if (diffId == null) _rightDiffService.CreateDiff(rightDiff);
-                else _rightDiffService.UpdateDiff(rightDiff);
+                _rightDiffService.CreateDiff(id, data.Data);
 
                 return Ok();
             }
