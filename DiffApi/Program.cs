@@ -2,12 +2,18 @@ using DiffApi.Db;
 using DiffApi.Infrastructure.Repositories;
 using DiffApi.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -16,6 +22,7 @@ builder.Services.AddScoped<ILeftDiffRepository, LeftDiffRepository>();
 builder.Services.AddScoped<ILeftDiffService, LeftDiffService>();
 builder.Services.AddScoped<IRightDiffRepository, RightDiffRepository>();
 builder.Services.AddScoped<IRightDiffService, RightDiffService>();
+builder.Services.AddScoped<IDiffService, DiffService>();
 
 var app = builder.Build();
 
