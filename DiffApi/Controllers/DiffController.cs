@@ -43,7 +43,7 @@ namespace DiffApi.Controllers
             {
                 _leftDiffService.CreateDiff(id, data.Data);
 
-                return Ok();
+                return Created(Request.Path, null);
             } else
             {
                 return BadRequest();
@@ -57,7 +57,7 @@ namespace DiffApi.Controllers
             {
                 _rightDiffService.CreateDiff(id, data.Data);
 
-                return Ok();
+                return Created(Request.Path, null);
             }
             else
             {
